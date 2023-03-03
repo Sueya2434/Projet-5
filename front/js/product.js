@@ -26,39 +26,35 @@ fetch(`http://localhost:3000/api/products/${id}`)
     const addToCart = document.getElementById("addToCart");
     console.log(addToCart)
     addToCart.addEventListener("click",function(){
-        console.log(select.value)
+
         const colorSelect = select.value;
         const quantity = document.getElementById("quantity");
         const quantitySelect = quantity.value;
-        console.log(quantity.value)
+
 /* créer objet produit qui contient l'identifiant du produit , la quantité selectionnée et la couleur selectionnée */
 /* cet objet le mettre dans un Array = pour crée un tableau vide déclarer variable avec crochet vides , insérer element avec push */
-/* utiliser localStorage */  
-        const productAdded = {id, colorSelect, quantitySelect,}      
-        console.log(productAdded);
-        const cart = [];
-        cart.push(productAdded)
-        console.log(cart)
-        localStorage.setItem('cart', JSON.stringify(cart));
-        const retrievedCart = localStorage.getItem('cart');
-        console.log('retrievedCart: ', JSON.parse(retrievedCart));
-        
-        const addedCart = JSON.parse(localStorage.getItem('cart')) ?? [];
-               
-        function cartAdded(id, colorSelect, quantitySelect) {
+/* utiliser localStorage */ 
 
-            const item = addedCart.find(item => id === item.id && colorSelect === item.colorSelect);
+        if (quantitySelect < 1) {
+            alert('Veuillez sélectionner une couleur et une quantitée comprise entre 1 et 100');
+            return;
+        }
+
+        const cart = JSON.parse(localStorage.getItem('cart')) ?? [];
+
+        const item = cart.find(item => product.id === item.id && colorSelect === item.colorSelect);
+  
             
             if (item) {
                 item.quantitySelect += quantitySelect;
             }
             else {
-                addedCart.push ({
+                cart.push ({
                     id,
                     colorSelect,
                     quantitySelect
                 });
             }
-        }
+            localStorage.setItem('cart', JSON.stringify(cart));
     })
 });
