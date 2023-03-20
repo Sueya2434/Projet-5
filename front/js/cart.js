@@ -10,6 +10,15 @@ cart.forEach(item => {
 
 const productPrices = {};
 
+function totalQuantity() {
+    let total = 0;
+
+    cart.forEach((item) => {
+        total += item.quantity
+    })
+    document.querySelector('#totalQuantity').textContent = total;
+};
+
 function totalPrice() {
     let total = 0;
 
@@ -28,23 +37,57 @@ Promise.all(promises).then(products => {
         const product = products[index];
     });
 
-function totalQuantity() {
-    let total = 0;
-
-    cart.forEach((item) => {
-        total += item.quantity
-    })
-    document.querySelector('#totalQuantity').textContent = total;
-};
 
 let productArticle = document.createElement("article");
     productArticle.className = "cart__item"
-    document.querySelector("#cart__items").appendChild(productArticle);
-
+    
 
 let productDivImg = document.createElement("div");
+    productDivImg.className = "cart__item__img"; 
+
+let productImg = document.createElement("img");
+    
+let productItemContent = document.createElement("div");   
+    productItemContent.className = "cart__item__content";
+
+let productItemContentTitlePrice = document.createElement("div");
+    productItemContentTitlePrice.className = "cart__item__content__description";
+
+let productTitle = document.createElement("h2");    
+
+let productColor = document.createElement("p");
+ 
+let productPrice = document.createElement("p");   
+
+let productItemContentSettings = document.createElement("div");
+    productItemContentSettings.className = "cart__item__content__settings";
+
+let productItemContentSettingsQuantity = document.createElement("div");
+    productItemContentSettingsQuantity.className = "cart__item__content__settings__quantity";
+
+let productQty = document.createElement("p"); 
+    productQty.innerHTML = "Qté : ";
+
+let productQuantity = document.createElement("input"); 
+    productQuantity.className = "itemQuantity";
+
+let productItemContentSettingsDelete = document.createElement("div");
+    productItemContentSettingsDelete.className = "cart__item__content__settings__delete";
+
+
+    document.querySelector("#cart__items").appendChild(productArticle);
     productArticle.appendChild(productDivImg);
-    productDivImg.className = "cart__item__img";
+    productDivImg.appendChild(productImg);
+    productArticle.appendChild(productItemContent);
+    productItemContent.appendChild(productItemContentTitlePrice);
+    productItemContentTitlePrice.appendChild(productTitle);
+    productTitle.appendChild(productColor);
+    productItemContentTitlePrice.appendChild(productPrice);
+    productItemContent.appendChild(productItemContentSettings);
+    productItemContentSettings.appendChild(productItemContentSettingsQuantity);
+    productItemContentSettingsQuantity.appendChild(productQty);
+    productItemContentSettingsQuantity.appendChild(productQuantity);
+    productItemContentSettings.appendChild(productItemContentSettingsDelete);
 
 // implémentation totalquantity (ressemble beaucoup à total price sans l'utilisation de l'objet productPrices)
 
